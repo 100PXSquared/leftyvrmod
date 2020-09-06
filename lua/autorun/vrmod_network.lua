@@ -468,7 +468,7 @@ if CLIENT then
 		
 		if GetConVar("vrmod_useworldmodels"):GetBool() then
 			print(GetConVar("vrmod_lefthanded"):GetBool())
-			if GetConVar("vrmod_lefthanded"):GetBool() then print("WARNING: worldmodels don't currently work in left handed mode as the weapons are always in the right hand")
+			if GetConVar("vrmod_lefthanded"):GetBool() then print("WARNING: worldmodels don't currently work in left handed mode as the weapons are always in the right hand") end
 			vrmod.SetRightHandOpenFingerAngles( g_VR.zeroHandAngles )
 			vrmod.SetRightHandClosedFingerAngles( g_VR.zeroHandAngles )
 			timer.Create("vrutil_waitforwm",0,0,function()
@@ -519,7 +519,7 @@ if CLIENT then
 		g_VR.viewModelInfo[class] = vmi
 		g_VR.currentvmi = vmi
 	end)
-	
+
 	hook.Add("CreateMove","vrutil_hook_joincreatemove",function(cmd)
 		hook.Remove("CreateMove","vrutil_hook_joincreatemove")
 		timer.Simple(2,function()
