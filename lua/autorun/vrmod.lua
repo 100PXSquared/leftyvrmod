@@ -18,7 +18,7 @@ if CLIENT then
 	g_VR.previousInput = {}
 	g_VR.errorText = ""
 
-	g_VR.leftHanded = true
+	g_VR.leftHanded = false
 		
 	concommand.Add( "vrmod_start", function( ply, cmd, args )
 		VRUtilClientStart()

@@ -70,7 +70,6 @@ function g_VR.CreateSettingsWindow()
 	end
 	
 	form:CheckBox("Use floating hands", "vrmod_floatinghands")
-	form:CheckBox("Use weapon world models", "vrmod_useworldmodels")
 	form:CheckBox("Left handed mode (WORLD MODELS BUGGED)", "vrmod_lefthanded")
 	form:CheckBox("Add laser pointer to tools/weapons", "vrmod_laserpointer")
 	--
