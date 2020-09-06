@@ -466,24 +466,25 @@ if CLIENT then
 		
 		-----------------------
 		
-		if GetConVar("vrmod_useworldmodels"):GetBool() then
-			print(GetConVar("vrmod_lefthanded"):GetBool())
-			if GetConVar("vrmod_lefthanded"):GetBool() then print("WARNING: worldmodels don't currently work in left handed mode as the weapons are always in the right hand") end
-			vrmod.SetRightHandOpenFingerAngles( g_VR.zeroHandAngles )
-			vrmod.SetRightHandClosedFingerAngles( g_VR.zeroHandAngles )
-			timer.Create("vrutil_waitforwm",0,0,function()
-				if IsValid(LocalPlayer():GetActiveWeapon()) and LocalPlayer():GetActiveWeapon():GetClass() == class then
-					timer.Remove("vrutil_waitforwm")
-					g_VR.viewModel = LocalPlayer():GetActiveWeapon()
-				end
-			end)
-			return
-		end
+		--if GetConVar("vrmod_useworldmodels"):GetBool() then
+		--	print(GetConVar("vrmod_lefthanded"):GetBool())
+		--	if GetConVar("vrmod_lefthanded"):GetBool() then print("WARNING: worldmodels don't currently work in left handed mode as the weapons are always in the right hand") end
+		--	vrmod.SetRightHandOpenFingerAngles( g_VR.zeroHandAngles )
+		--	vrmod.SetRightHandClosedFingerAngles( g_VR.zeroHandAngles )
+		--	timer.Create("vrutil_waitforwm",0,0,function()
+		--		if IsValid(LocalPlayer():GetActiveWeapon()) and LocalPlayer():GetActiveWeapon():GetClass() == class then
+		--			timer.Remove("vrutil_waitforwm")
+		--			g_VR.viewModel = LocalPlayer():GetActiveWeapon()
+		--		end
+		--	end)
+		--	return
+		--end
 		
 		-------------------------
 		
 		local vmi = g_VR.viewModelInfo[class] or {}
 		local model = vmi.modelOverride ~= nil and vmi.modelOverride or vm
+		local leftHanded = GetConVar("vrmod_lefthanded"):GetBool()
 		
 		g_VR.viewModel = LocalPlayer():GetViewModel()
 		
@@ -506,9 +507,9 @@ if CLIENT then
 		end
 		
 		--create finger poses
-		vmi.closedHandAngles = GetConVar("vrmod_lefthanded"):GetBool() and vrmod.GetLeftHandFingerAnglesFromModel(model) or vrmod.GetRightHandFingerAnglesFromModel(model)
+		vmi.closedHandAngles = vrmod.GetRightHandFingerAnglesFromModel(model)
 
-		if GetConVar("vrmod_lefthanded"):GetBool() then
+		if leftHanded then
 			vrmod.SetLeftHandClosedFingerAngles(vmi.closedHandAngles)
 			vrmod.SetLeftHandOpenFingerAngles(vmi.closedHandAngles)
 		else

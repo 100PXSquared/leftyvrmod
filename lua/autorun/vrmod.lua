@@ -233,19 +233,19 @@ if CLIENT then
 					g_VR.viewModel:SetupBones()
 
 					--override hand pose in net frame
-					if netFrame then
-						local b = g_VR.leftHanded and g_VR.viewModel:LookupBone("ValveBiped.Bip01_R_Hand") or g_VR.viewModel:LookupBone("ValveBiped.Bip01_L_Hand")
-						if b then
-							local mtx = g_VR.viewModel:GetBoneMatrix(b)
-							if g_VR.leftHanded then
-								netFrame.lefthandPos = mtx:GetTranslation()
-								netFrame.lefthandAng = mtx:GetAngles() - Angle(0,0,180)
-							else
-								netFrame.righthandPos = mtx:GetTranslation()
-								netFrame.righthandAng = mtx:GetAngles() - Angle(0,0,180)
-							end
-						end
-					end
+					--if netFrame then
+					--	local b = g_VR.viewModel:LookupBone("ValveBiped.Bip01_R_Hand")
+					--	if b then
+					--		local mtx = g_VR.viewModel:GetBoneMatrix(b)
+					--		if g_VR.leftHanded then
+					--			netFrame.lefthandPos = mtx:GetTranslation()
+					--			netFrame.lefthandAng = mtx:GetAngles() - Angle(0,0,180)
+					--		else
+					--			netFrame.righthandPos = mtx:GetTranslation()
+					--			netFrame.righthandAng = mtx:GetAngles() - Angle(0,0,180)
+					--		end
+					--	end
+					--end
 				end
 				g_VR.viewModelMuzzle = g_VR.viewModel:GetAttachment(1)
 			end

@@ -143,14 +143,14 @@ if CLIENT then
 						surface.SetDrawColor( Color( 0, 0, 0, 255 ) )
 						surface.DrawOutlinedRect(0,0,w,h)
 					end
-					local lowerCase = "1234567890\1\nqwertyuiop\nasdfghjkl\2\n\3zxcvbnm,.\3\n "
-					local upperCase = "!\"#$%&/=?-\1\nQWERTYUIOP\nASDFGHJKL\2\n\3ZXCVBNM;:\3\n "
+					local lowerCase = "1234567890\1\nqwertyuiop\nasdfghjkl\2\n\3zxcvbnm,.\3\n\4"
+					local upperCase = "!\"#$%&/=?-\1\nQWERTYUIOP\nASDFGHJKL\2\n\3ZXCVBNM;:\3\n\4"
 					local selectedCase = lowerCase
 					local keys = {}
 					local function updateKeyboard()
 						for i = 1,#selectedCase do
 							if selectedCase[i] == "\n" then continue end
-							keys[i]:SetText(selectedCase[i] == "\1" and "Back" or selectedCase[i] == "\2" and "Enter" or selectedCase[i] == "\3" and "Shift" or selectedCase[i] )
+							keys[i]:SetText(selectedCase[i] == "\1" and "Back" or selectedCase[i] == "\2" and "Enter" or selectedCase[i] == "\3" and "Shift" or selectedCase[i] == "\4" and "___" or selectedCase[i])
 						end
 					end
 					local x,y = 5,5
@@ -163,12 +163,14 @@ if CLIENT then
 						keys[i] = vgui.Create( "DLabel", keyboardPanel )
 						local key = keys[i]
 						key:SetPos(x,y)
-						key:SetSize(selectedCase[i] == " " and 300 or selectedCase[i] == "\2" and 65 or 45,45)
+						key:SetSize(selectedCase[i] == "\4" and 300 or selectedCase[i] == "\2" and 65 or 45,45)
 						key:SetTextColor(Color(255,255,255,255))
-						key:SetFont((selectedCase[i] == "\1" or selectedCase[i] == "\2" or selectedCase[i] == "\3") and "HudSelectionText" or "vrmod_Verdana37")
-						key:SetText(selectedCase[i] == "\1" and "Back" or selectedCase[i] == "\2" and "Enter" or selectedCase[i] == "\3" and "Shift" or selectedCase[i] )
+						key:SetFont((selectedCase[i] == "\1" or selectedCase[i] == "\2" or selectedCase[i] == "\3" or selectedCase[i] == "\4") and "HudSelectionText" or "vrmod_Verdana37")
+						key:SetText(selectedCase[i] == "\1" and "Back" or selectedCase[i] == "\2" and "Enter" or selectedCase[i] == "\3" and "Shift" or selectedCase[i] == "\4" and "___" or selectedCase[i])
 						key:SetMouseInputEnabled(true)
 						key:SetContentAlignment(5)
+
+						-- Key events
 						key.OnMousePressed = function()
 							if key:GetText() == "Back" then
 								chatPanel.msgbar:SetText(string.sub(chatPanel.msgbar:GetText(),1,#chatPanel.msgbar:GetText()-1))
@@ -179,11 +181,21 @@ if CLIENT then
 								selectedCase = (selectedCase == lowerCase) and upperCase or lowerCase
 								updateKeyboard()
 							else
-								chatPanel.msgbar:SetText(chatPanel.msgbar:GetText()..key:GetText())
+								chatPanel.msgbar:SetText(chatPanel.msgbar:GetText() .. (key:GetText() == "___" and " " or key:GetText()))
 							end
+
 							chatPanel.msgbar:SetCaretPos(99999)
+							key:SetTextColor(Color(150, 150, 150, 255))
 							VRUtilMenuRenderPanel("chat")
 						end
+						key.OnMouseReleased = function()
+							key:SetTextColor(Color(255, 255, 255, 255))
+						end
+						key.OnCursorExited = function()
+							key:SetTextColor(Color(255, 255, 255, 255))
+						end
+
+						-- Draw the key
 						function key:Paint(w,h)
 							surface.SetDrawColor( Color( 0, 0, 0, 200 ) )
 							surface.DrawRect(0,0,w,h)
