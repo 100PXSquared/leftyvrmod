@@ -2,6 +2,7 @@ g_VR = g_VR or {}
 
 if CLIENT then
 	print("VRMOD INIT")
+
 	g_VR.scale = 0
 	g_VR.origin = Vector(0,0,0)
 	g_VR.originAngle = Angle(0,0,0)
@@ -217,7 +218,7 @@ if CLIENT then
 			--update viewmodel position
 			if g_VR.currentvmi then
 				local pos, ang = LocalToWorld(
-					g_VR.currentvmi.offsetPos,
+					g_VR.currentvmi.offsetPos + (g_VR.leftHanded and Vector(0) or g_VR.currentvmi.rightHandOffset),
 					g_VR.currentvmi.offsetAng,
 					g_VR.leftHanded and g_VR.tracking.pose_lefthand.pos or g_VR.tracking.pose_righthand.pos,
 					g_VR.leftHanded and g_VR.tracking.pose_lefthand.ang or g_VR.tracking.pose_righthand.ang
