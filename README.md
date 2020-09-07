@@ -10,11 +10,9 @@ A modified version of VRMod for GMod that allows you to use your left hand for w
 ## Known bugs
 * Using world models is no longer supported (you can still enable it from console, but it won't work properly) as the code that positions the viewmodel when using them interfered with my new left-handed code.  
 This isn't too bad as world models don't work 100% in the original version either.  
-* You will notice errors in the positions of weapons, this is the same in the original, but because of the aforementioned hand position override, it's less noticable
-* The left-hand offsets are currently the same as the right hand ones, this means the weapons in left-handed mode are even further out, this will be fixed soon
 
 ## Untested
-* I have no idea if this will work in multiplayer, looking at the net code I cant see an immediate problem, but I'm unable to actually test it.
+* I have no idea if this will work in multiplayer, looking at the net code I cant see an immediate problem, but I'm unable to actually test it.  
 
 ## Installation
 Perform the same steps as installing normal VRMod [here](https://steamcommunity.com/sharedfiles/filedetails/?id=1678408548#highlightContent "Steam Workshop Page") except subscribing to the addon itself.  
